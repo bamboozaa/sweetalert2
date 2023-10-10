@@ -844,6 +844,37 @@
         <main class="container">
             <h1> How to Install jQuery in Laravel 10</h1>
             <button class="btn btn-success">Click Me</button>
+
+
+            <button id="delete-button" data-url="{{ route('delete') }}">Delete</button>
+
+<script>
+    document.getElementById('delete-button').addEventListener('click', function () {
+        const url = this.getAttribute('data-url');
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Perform the delete action here, e.g., via AJAX
+                axios.delete(url)
+                    .then(response => {
+                        // Handle the response, e.g., show a success message
+                        Swal.fire('Deleted!', 'Your item has been deleted.', 'success');
+                    })
+                    .catch(error => {
+                        // Handle errors, e.g., show an error message
+                        Swal.fire('Error!', 'Something went wrong.', 'error');
+                    });
+            }
+        });
+    });
+</script>
         </main>
     </div>
     <div
